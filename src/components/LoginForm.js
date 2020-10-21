@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { registerUser } from 'store/main/mainThunks';
+import { loginUser } from 'store/main/mainThunks';
 
-class RegisterForm extends Component {
+class LoginForm extends Component {
   state = {
     email: '',
     password: '',
-  }
-
-  checkState = () => {
-    
   }
 
   handleChange = (event) => {
@@ -29,7 +26,7 @@ class RegisterForm extends Component {
 
     const { email, password } = this.state;
 
-    this.props.registerUserThunk({
+    this.props.loginUserThunk({
       email,
       password
     })
@@ -74,8 +71,18 @@ class RegisterForm extends Component {
             color="primary"
             type="submit"
           >
-            Зарегистрироваться
+            Войти
           </Button>
+
+          <br />
+
+          <Button
+            variant="outlined"
+            color="primary"
+          >
+            <Link to="/reg">Регистрация</Link>
+          </Button>
+
         </div>
       </form>
 
@@ -84,7 +91,7 @@ class RegisterForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  registerUserThunk: (user) => dispatch(registerUser(user))
+  loginUserThunk: (user) => dispatch(loginUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(RegisterForm);
+export default connect(null, mapDispatchToProps)(LoginForm);

@@ -1,9 +1,15 @@
 import axios from './axios';
 
-const path = '/auth/register';
+const regPath = '/auth/register';
+const loginPath = '/auth/login';
 
 const register = (data) => {
-  return axios.post(path, data);
+  return axios.post(regPath, data);
 };
 
-export default { register };
+const login = (data) => {
+  return axios.post(loginPath, data);
+};
+
+
+export default { register, login };

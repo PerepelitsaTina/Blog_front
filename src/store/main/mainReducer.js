@@ -9,6 +9,7 @@ const mainReducer = createSlice({
   initialState: getInitialState(),
   reducers: {
     updateUser: (store, { payload }) => {
+      console.log(payload);
       return {
         ...store,
         user: payload
