@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from 'pages/Home';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
@@ -16,7 +16,7 @@ export const Router = (props) => {
           (route.role === 'none' && props.user) ||
           (route.role === 'admin' && props.user.role !== 'admin')
         ) {
-          return null;
+          return null;          
         }
 
         return (
@@ -45,11 +45,6 @@ const routes = [
     role: 'none',
   },
   {
-    path: '/home',
-    exact: true,
-    component: Home
-  },
-  {
     path: '/start',
     exact: true,
     component: StartPage,
@@ -60,6 +55,11 @@ const routes = [
     exact: true,
     component: LoginPage,
     role: 'none',
+  },
+  {
+    path: '/home',
+    exact: true,
+    component: Home
   },
 
 ];
