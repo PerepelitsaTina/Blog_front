@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { NavLink, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+
 import { registerUser } from 'store/main/mainThunks';
 
 class RegisterForm extends Component {
   state = {
     email: '',
     password: '',
-  }
-
-  checkState = () => {
-    
   }
 
   handleChange = (event) => {
@@ -32,52 +35,95 @@ class RegisterForm extends Component {
     this.props.registerUserThunk({
       email,
       password
-    })
+    });
+
+    this.props.history.push('/account');
   }
 
   render() {
+    const classes = makeStyles((theme) => ({
+      paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      },
+      avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+      },
+      form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+      },
+      submit: {
+        margin: theme.spacing(3, 0, 2),
+      },
+    }));
+
     return (
-      <form
-        noValidate
-        autoComplete="off"
-        onSubmit={this.onSubmit}
-      >
-        <div>
-          <TextField
-            required
-            id="outlined-required"
-            label="Email"
-            variant="outlined"
-            onChange={this.handleChange}
-            name="email"
-            value={this.state.email}
-          />
-
-          <br />
-
-          <TextField
-            required
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            variant="outlined"
-            onChange={this.handleChange}
-            name="password"
-            value={this.state.password}
-          />
-
-          <br />
-
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5">
+            Регистрация
+        </Typography>
+          <form
+            className={classes.form}
+            onSubmit={this.onSubmit}
           >
-            Зарегистрироваться
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={this.handleChange}
+              value={this.state.email}
+
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={this.handleChange}
+              value={this.state.password}
+
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+
+            >
+              Войти
           </Button>
+            <Grid container>
+              <Grid item>
+                <Link
+                  component={NavLink}
+                  to="/login"
+                  variant="body2"
+                >
+                  {"Уже зарегистрированы? Войти"}
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
         </div>
-      </form>
+      </Container>
 
     );
   }
@@ -87,4 +133,4 @@ const mapDispatchToProps = (dispatch) => ({
   registerUserThunk: (user) => dispatch(registerUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(RegisterForm);
+export default connect(null, mapDispatchToProps)(withRouter(RegisterForm));

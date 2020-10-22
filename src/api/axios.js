@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import config from 'config';
+import token from 'utils/token';
 
 const axiosInstance = axios.create({
   baseURL: config.apiBaseUrl
@@ -10,8 +11,8 @@ axiosInstance.interceptors.request.use((request) => {
   if (!request.headers) {
     request.headers = {};
   }
-  const token = localStorage.token;
-  request.headers.authorization = `Bearer ${token}`;
+  const jwtToken = token.get();
+  request.headers.authorization = `Bearer ${jwtToken}`;
 
   return request;
 });

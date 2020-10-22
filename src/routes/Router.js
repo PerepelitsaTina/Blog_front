@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Home from 'pages/Home';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
-import { connectionWithUser } from 'utils';
-import StartPage from 'pages/StartPage';
+import { connectionWithUser } from '../store/connection';
+import AccountPage from 'pages/AccountPage';
 
 export const Router = (props) => {
   return (
@@ -16,7 +16,7 @@ export const Router = (props) => {
           (route.role === 'none' && props.user) ||
           (route.role === 'admin' && props.user.role !== 'admin')
         ) {
-          return null;          
+          return null;
         }
 
         return (
@@ -39,15 +39,15 @@ export const Router = (props) => {
 
 const routes = [
   {
-    path: '/reg',
+    path: '/registration',
     exact: true,
     component: RegisterPage,
     role: 'none',
   },
   {
-    path: '/start',
+    path: '/account',
     exact: true,
-    component: StartPage,
+    component: AccountPage,
     role: "user"
   },
   {
@@ -57,7 +57,7 @@ const routes = [
     role: 'none',
   },
   {
-    path: '/home',
+    path: '/',
     exact: true,
     component: Home
   },
