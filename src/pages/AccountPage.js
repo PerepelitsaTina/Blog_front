@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { Button, Typography } from '@material-ui/core';
 import { connectionWithUser } from 'store/connection';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,10 @@ export const AccountPage = (props) => {
           className={classes.change}
           onClick={changeForm}
         >
+        <Link
+        to="/edit" >
           Изменить
+          </Link>
         </Button>
       </div>
     </div>

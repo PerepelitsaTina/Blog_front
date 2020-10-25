@@ -1,6 +1,7 @@
 import authApi from 'api/authApi';
 import { updateUser } from './mainReducer';
 import jwtToken from '../../utils/token';
+import userApi from 'api/userApi';
 
 export const registerUser = (newUser) => {
   return async (dispatch) => {
@@ -34,6 +35,39 @@ export const authorizeThunk = () => {
         const user = await authApi.me();
         dispatch(updateUser(user));
       } 
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const editUserThunk = (newData, userId) => {
+  return async (dispatch) => {
+    try {
+      const user = await userApi.edit(newData, userId);
+      dispatch(updateUser(user));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getUserList = () => {
+  return async () => {
+    try {
+      const users = await userApi.getList();
+      return users;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getOneUser = (id) => {
+  return async (id) => {
+    try {
+      const user = await userApi.getOne(id);
+      return user;
     } catch (err) {
       console.log(err);
     }

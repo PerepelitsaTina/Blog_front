@@ -8,3 +8,13 @@ export const connectionWithUser = connect(
   updateUser
 }
 );
+
+export const connection = (thunk) => {
+  connect(
+    (state) => ({
+      user: state.main.user
+    }), {
+      thunk
+    }
+  );
+}

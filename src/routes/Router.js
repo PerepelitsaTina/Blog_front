@@ -6,6 +6,8 @@ import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
 import { connectionWithUser } from '../store/connection';
 import AccountPage from 'pages/AccountPage';
+import EditForm from 'components/EditForm';
+import UserPage from 'pages/UserPage';
 
 export const Router = (props) => {
   return (
@@ -57,10 +59,20 @@ const routes = [
     role: 'none',
   },
   {
+    path: '/edit',
+    exact: true,
+    component: EditForm,
+  },
+  {
     path: '/',
     exact: true,
     component: Home
   },
+  {
+    path: '/users/:id',
+    exact:true,
+    component: UserPage
+  }
 
 ];
 

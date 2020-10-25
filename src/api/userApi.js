@@ -2,7 +2,7 @@ import axios from './axios';
 
 const path = '/user';
 
-export const getOne = (id) => {
+const getOne = (id) => {
   return axios.get(`${path}/${id}`);
 };
 
@@ -11,12 +11,16 @@ export const getOne = (id) => {
  *    limit: number
  * }} params
  */
-export const getList = (params) => {
-  return axios.get(path, { params });
+const getList = () => {
+  return axios.get(`${path}/list`);
 };
 
-export const create = (data) => {
+const create = (data) => {
   return axios.post(path, data);
 };
 
-export default { getOne, getList, create };
+const edit = (data, id) => {
+  return axios.patch(`${path}/${id}`, data);
+}
+
+export default { getOne, getList, create, edit };

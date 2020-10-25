@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { loginUser } from 'store/main/mainThunks';
+import { editUserThunk } from 'store/main/mainThunks';
 
-class LoginForm extends Component {
+class EditForm extends Component {
   state = {
     email: '',
     password: '',
@@ -30,11 +27,11 @@ class LoginForm extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
-
-    await this.props.loginUserThunk({
+    const userId = this.props.user.id;
+    await this.props.editUser({
       email,
       password
-    });
+    }, userId);
 
     this.props.history.push('/account');
   }
@@ -45,11 +42,6 @@ class LoginForm extends Component {
         marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-      },
-      avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
       },
       form: {
         width: '100%', // Fix IE 11 issue.
@@ -61,11 +53,14 @@ class LoginForm extends Component {
     }));
 
     return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
+      <Container 
+      component="main"
+      maxWidth="xs"
+       className={classes.paper}
+       >
+
           <Typography component="h1" variant="h5">
-            Вход
+            Изменить данные пользователя
         </Typography>
           <form
             className={classes.form}
@@ -74,13 +69,11 @@ class LoginForm extends Component {
             <TextField
               variant="outlined"
               margin="normal"
-              required
-              fullWidth
               id="email"
+              fullWidth
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
               onChange={this.handleChange}
               value={this.state.email}
 
@@ -88,9 +81,8 @@ class LoginForm extends Component {
             <TextField
               variant="outlined"
               margin="normal"
-              required
-              fullWidth
               name="password"
+              fullWidth
               label="Password"
               type="password"
               id="password"
@@ -101,34 +93,25 @@ class LoginForm extends Component {
             />
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
 
             >
-              Войти
+              Сохранить
           </Button>
-            <Grid container>
-              <Grid item>
-                <Link
-                  component={NavLink}
-                  to="/registration" 
-                  variant="body2"
-                  >
-                  {"Нет аккаунта? Зарегистрироваться"}
-                </Link>
-              </Grid>
-            </Grid>
           </form>
-        </div>
-      </Container>
+          </Container>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUserThunk: (user) => dispatch(loginUser(user))
+  editUser: (user, id) => dispatch(editUserThunk(user, id))
 });
 
-export default connect(null, mapDispatchToProps)(withRouter(LoginForm));
+const mapState = (state) => ({
+  user: state.main.user
+});
+
+export default connect(mapState, mapDispatchToProps)(withRouter(EditForm));
