@@ -23,12 +23,14 @@ const useStyles = makeStyles((theme) => ({
 export const AccountPage = (props) => {
   const classes = useStyles();
 
-  if (!props.user) {
-    return <Redirect to="/login" />
-  }
+  // if (!props.user) {
+  //   return <Redirect to="/login" />
+  // }
+
   return (
     <div className={classes.root}>
-      <Avatar src="/static/images/avatar/1.jpg" className={classes.large} />
+      <Avatar src={props.user.avatar} className={classes.large} />
+
       <div>
         <Typography variant="h6" gutterBottom>
           {props.user.email}

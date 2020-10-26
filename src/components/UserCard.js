@@ -12,7 +12,12 @@ import userApi from 'api/userApi';
 class UserCard extends Component {
 
   handleClick = async () => {
-    await userApi.deleteUser(this.props.currentUser.id);
+    try {
+      await userApi.deleteUser(this.props.currentUser.id);
+      this.props.getUsers();
+    } catch (error) {
+      console.log('ERROR: ', error);
+    }
   }
 
   render() {

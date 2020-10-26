@@ -67,7 +67,7 @@ class RegisterForm extends Component {
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
             Регистрация
-        </Typography>
+          </Typography>
           <form
             className={classes.form}
             onSubmit={this.onSubmit}
@@ -109,7 +109,7 @@ class RegisterForm extends Component {
 
             >
               Войти
-          </Button>
+            </Button>
             <Grid container>
               <Grid item>
                 <Link
@@ -117,7 +117,7 @@ class RegisterForm extends Component {
                   to="/login"
                   variant="body2"
                 >
-                  {"Уже зарегистрированы? Войти"}
+                  Уже зарегистрированы? Войти
                 </Link>
               </Grid>
             </Grid>

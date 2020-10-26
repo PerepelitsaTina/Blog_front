@@ -42,10 +42,10 @@ export const authorizeThunk = () => {
   return async (dispatch) => {
     try {
       const token = jwtToken.get();
-      if (token) {
-        const user = await authApi.me();
-        dispatch(updateUser(user));
-      }
+      if (!token) { return; }
+
+      const user = await authApi.me();
+      dispatch(updateUser(user));
     } catch (err) {
       console.log(err);
     }

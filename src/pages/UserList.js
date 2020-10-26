@@ -6,19 +6,21 @@ import { getUserList } from 'store/main/mainThunks';
 import { connectionWithUser } from 'store/connection';
 import { Redirect } from 'react-router-dom';
 
-
 class UserList extends Component {
   state = {
     users: []
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.getUsers();
+  }
+ 
+  getUsers = async () => {
     const users = await this.props.getAllUsers();
     this.setState({
       users
     });
   }
-
 
   render() {
     const classes = makeStyles(() => ({
@@ -34,6 +36,7 @@ class UserList extends Component {
       <div className={classes.root}>
         {this.state.users.map(currentUser => (
           <UserCard
+            getUsers={this.getUsers}
             currentUser={currentUser}
             key={currentUser.id}
           />

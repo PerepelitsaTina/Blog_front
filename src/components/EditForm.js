@@ -16,13 +16,12 @@ class EditForm extends Component {
     password: '',
   }
 
-  // async componentDidMount() {
-  //   const {}
-  //   this.setState({
-  //     email,
-  //     password
-  //   })
-  // }
+  async componentDidMount() {
+    const { email } = this.props.user
+    this.setState({
+      email
+    })
+  }
 
   handleChange = (event) => {
     const name = event.target.name;
@@ -36,11 +35,12 @@ class EditForm extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
+    const user = { email };
+    if (password) {
+      user.password = password;
+    }
     const userId = this.props.user.id;
-    await this.props.editUser({
-      email,
-      password
-    }, +userId);
+    await this.props.editUser(user, +userId);
     this.props.history.push('/account');
   }
 

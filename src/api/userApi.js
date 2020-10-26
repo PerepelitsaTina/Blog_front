@@ -6,11 +6,6 @@ const getOne = (id) => {
   return axios.get(`${path}/${id}`);
 };
 
-/**
- * @param {{
- *    limit: number
- * }} params
- */
 const getList = () => {
   return axios.get(`${path}/list`);
 };

@@ -10,13 +10,14 @@ export class UserPage extends Component {
     currentUser: {}
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     const userId = this.props.match.params.id;
     const currentUser = await userApi.getOne(userId);
     this.setState({
       currentUser
     })
   }
+
   render() {
     const classes = makeStyles((theme) => ({
       root: {
@@ -31,13 +32,11 @@ export class UserPage extends Component {
       },
     }));
     return (
-
       <div>
         <Avatar src="/static/images/avatar/1.jpg" className={classes.large} />
         <Typography variant="h6" gutterBottom>
           {this.state.currentUser.email}
         </Typography>
-
       </div>
     );
   }

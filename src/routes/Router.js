@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from 'pages/Home';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
-import { connectionWithUser } from '../store/connection';
 import AccountPage from 'pages/AccountPage';
-import EditForm from 'components/EditForm';
 import UserPage from 'pages/UserPage';
 import UserList from 'pages/UserList';
 import EditUser from 'pages/EditUser';
+import EditForm from 'components/EditForm';
+
+import { connectionWithUser } from '../store/connection';
 
 export const Router = (props) => {
   return (
@@ -20,7 +21,16 @@ export const Router = (props) => {
           (route.role === 'none' && props.user) ||
           (route.role === 'admin' && props.user.role !== 'admin')
         ) {
-          return null;
+          return (
+            <Route
+              key={route.path}
+              path={route.path}
+              exact={route.exact}
+              component={() => (
+                <Redirect to={route.redirectTo || "/"} />
+              )}
+            />
+          );
         }
 
         return (
@@ -43,21 +53,28 @@ export const Router = (props) => {
 
 const routes = [
   {
+    path: '/',
+    exact: true,
+    component: Home
+  },
+  {
     path: '/registration',
     exact: true,
     component: RegisterPage,
     role: 'none',
   },
   {
-    path: '/account',
-    exact: true,
-    component: AccountPage,
-  },
-  {
     path: '/login',
     exact: true,
     component: LoginPage,
     role: 'none',
+  },
+  {
+    path: '/account',
+    exact: true,
+    component: AccountPage,
+    role: "any",
+    redirectTo: "/login",
   },
   {
     path: '/edit',
@@ -76,16 +93,10 @@ const routes = [
     role: "admin"
   },
   {
-    path: '/',
-    exact: true,
-    component: Home
-  },
-  {
     path: '/users/:id',
-    exact:true,
+    exact: true,
     component: UserPage
   }
-
 ];
 
 export default connectionWithUser(Router);

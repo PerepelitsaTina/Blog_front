@@ -1,11 +1,11 @@
 import axios from './axios';
 
-const regPath = '/auth/register';
 const loginPath = '/auth/login';
 const mePath = '/auth/me';
+const path = '/auth';
 
 const register = (data) => {
-  return axios.post(regPath, data);
+  return axios.post(`${path}/register`, data);
 };
 
 const login = (data) => {

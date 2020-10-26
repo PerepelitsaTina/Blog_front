@@ -4,8 +4,7 @@ import Header from 'pages/components/Header';
 import Router from 'routes/Router';
 import { authorizeThunk } from 'store/main/mainThunks';
 
-
-const App = (props) => {
+const App = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const dispatch = useDispatch();
   const authorize = async () => {
@@ -24,7 +23,8 @@ const App = (props) => {
   return (
     <>
       <Header />
-      <Router 
+
+      <Router
         isAuthorized={isAuthorized}
       />
     </>

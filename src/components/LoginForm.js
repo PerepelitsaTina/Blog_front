@@ -31,7 +31,7 @@ class LoginForm extends Component {
 
     const { email, password } = this.state;
 
-    await this.props.loginUserThunk({
+    await this.props.loginUser({
       email,
       password
     });
@@ -66,7 +66,8 @@ class LoginForm extends Component {
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
             Вход
-        </Typography>
+          </Typography>
+
           <form
             className={classes.form}
             onSubmit={this.onSubmit}
@@ -76,7 +77,6 @@ class LoginForm extends Component {
               margin="normal"
               required
               fullWidth
-              id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
@@ -93,8 +93,7 @@ class LoginForm extends Component {
               name="password"
               label="Password"
               type="password"
-              id="password"
-              autoComplete="current-password"
+              autoComplete="password"
               onChange={this.handleChange}
               value={this.state.password}
             />
@@ -114,7 +113,7 @@ class LoginForm extends Component {
               to="/registration"
               variant="body2"
             >
-              {"Нет аккаунта? Зарегистрироваться"}
+              Нет аккаунта? Зарегистрироваться
             </Link>
           </form>
         </div>
@@ -123,9 +122,9 @@ class LoginForm extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  loginUserThunk: (user) => dispatch(loginUser(user))
-});
+const connectFunctiopn = connect(
+  null,
+  { loginUser }
+);
 
-export default connect(null, mapDispatchToProps)(withRouter(LoginForm));
-
+export default connectFunctiopn(withRouter(LoginForm));

@@ -1,7 +1,18 @@
-import { Button, Container, FormControl, makeStyles, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-import userApi from 'api/userApi';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+
+import {
+  Button,
+  Container,
+  FormControl,
+  makeStyles,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from '@material-ui/core';
+
+import userApi from 'api/userApi';
 import { connectionWithUser } from 'store/connection';
 
 export class EditUser extends Component {
@@ -87,7 +98,6 @@ export class EditUser extends Component {
           <TextField
             variant="outlined"
             margin="normal"
-            id="email"
             fullWidth
             label="Email Address"
             name="email"
@@ -102,7 +112,6 @@ export class EditUser extends Component {
             fullWidth
             label="Password"
             type="password"
-            id="password"
             onChange={this.handleChange}
             value={this.state.password}
           />
@@ -162,4 +171,3 @@ export class EditUser extends Component {
 }
 
 export default connectionWithUser(withRouter(EditUser));
-
