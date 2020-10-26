@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link, Redirect } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { Button, Typography } from '@material-ui/core';
+
 import { connectionWithUser } from 'store/connection';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,10 +23,9 @@ const useStyles = makeStyles((theme) => ({
 export const AccountPage = (props) => {
   const classes = useStyles();
 
-  const changeForm = () => {
-    return <h1>HI</h1>
-  };
-
+  if (!props.user) {
+    return <Redirect to="/login" />
+  }
   return (
     <div className={classes.root}>
       <Avatar src="/static/images/avatar/1.jpg" className={classes.large} />
@@ -32,16 +33,15 @@ export const AccountPage = (props) => {
         <Typography variant="h6" gutterBottom>
           {props.user.email}
         </Typography>
+
         <Button
           variant="contained"
           color="primary"
           className={classes.change}
-          onClick={changeForm}
+          component={Link}
+          to="/edit"
         >
-        <Link
-        to="/edit" >
           Изменить
-          </Link>
         </Button>
       </div>
     </div>

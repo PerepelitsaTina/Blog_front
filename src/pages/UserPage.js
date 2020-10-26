@@ -13,7 +13,6 @@ export class UserPage extends Component {
   async componentDidMount () {
     const userId = this.props.match.params.id;
     const currentUser = await userApi.getOne(userId);
-    console.log(currentUser);
     this.setState({
       currentUser
     })

@@ -8,6 +8,8 @@ import { connectionWithUser } from '../store/connection';
 import AccountPage from 'pages/AccountPage';
 import EditForm from 'components/EditForm';
 import UserPage from 'pages/UserPage';
+import UserList from 'pages/UserList';
+import EditUser from 'pages/EditUser';
 
 export const Router = (props) => {
   return (
@@ -50,7 +52,6 @@ const routes = [
     path: '/account',
     exact: true,
     component: AccountPage,
-    role: "user"
   },
   {
     path: '/login',
@@ -62,6 +63,17 @@ const routes = [
     path: '/edit',
     exact: true,
     component: EditForm,
+  },
+  {
+    path: '/users',
+    exact: true,
+    component: UserList
+  },
+  {
+    path: '/edit/:id',
+    exact: true,
+    component: EditUser,
+    role: "admin"
   },
   {
     path: '/',

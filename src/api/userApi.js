@@ -23,4 +23,8 @@ const edit = (data, id) => {
   return axios.patch(`${path}/${id}`, data);
 }
 
-export default { getOne, getList, create, edit };
+const deleteUser = (id) => {
+  return axios.delete(`${path}/${id}`);
+}
+
+export default { getOne, getList, create, edit, deleteUser };

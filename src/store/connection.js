@@ -9,12 +9,4 @@ export const connectionWithUser = connect(
 }
 );
 
-export const connection = (thunk) => {
-  connect(
-    (state) => ({
-      user: state.main.user
-    }), {
-      thunk
-    }
-  );
-}
+

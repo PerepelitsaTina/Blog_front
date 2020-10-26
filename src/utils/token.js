@@ -5,5 +5,8 @@ export default {
   },
   set: function (data) {
     localStorage.setItem(this.key, data);
+  },
+  remove: function () {
+    return localStorage.removeItem(this.key)
   }
 };

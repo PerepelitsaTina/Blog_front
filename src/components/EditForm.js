@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { withRouter } from 'react-router-dom';
 
-import { connect } from 'react-redux';
 import { editUserThunk } from 'store/main/mainThunks';
 
 class EditForm extends Component {
@@ -14,6 +15,14 @@ class EditForm extends Component {
     email: '',
     password: '',
   }
+
+  // async componentDidMount() {
+  //   const {}
+  //   this.setState({
+  //     email,
+  //     password
+  //   })
+  // }
 
   handleChange = (event) => {
     const name = event.target.name;
@@ -31,8 +40,7 @@ class EditForm extends Component {
     await this.props.editUser({
       email,
       password
-    }, userId);
-
+    }, +userId);
     this.props.history.push('/account');
   }
 
@@ -53,55 +61,58 @@ class EditForm extends Component {
     }));
 
     return (
-      <Container 
-      component="main"
-      maxWidth="xs"
-       className={classes.paper}
-       >
+      <Container
+        component="main"
+        maxWidth="xs"
+        className={classes.paper}
+      >
 
-          <Typography component="h1" variant="h5">
-            Изменить данные пользователя
+        <Typography
+          component="h1"
+          variant="h5"
+        >
+          Изменить данные пользователя
         </Typography>
-          <form
-            className={classes.form}
-            onSubmit={this.onSubmit}
+
+        <form
+          className={classes.form}
+          onSubmit={this.onSubmit}
+        >
+          <TextField
+            variant="outlined"
+            margin="normal"
+            id="email"
+            fullWidth
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            onChange={this.handleChange}
+            value={this.state.email}
+          />
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            name="password"
+            fullWidth
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={this.handleChange}
+            value={this.state.password}
+          />
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.submit}
           >
-            <TextField
-              variant="outlined"
-              margin="normal"
-              id="email"
-              fullWidth
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              onChange={this.handleChange}
-              value={this.state.email}
-
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              name="password"
-              fullWidth
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={this.handleChange}
-              value={this.state.password}
-
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-
-            >
-              Сохранить
+            Сохранить
           </Button>
-          </form>
-          </Container>
+        </form>
+      </Container>
     );
   }
 }

@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,15 +9,15 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-import { Link, NavLink } from 'react-router-dom';
+import { logoutUser } from 'store/main/mainThunks';
 
-
-const Header = () => {
-  const useStyles = makeStyles((theme) => ({
+export const Header = (props) => {
+  const useStyles = makeStyles(() => ({
     root: {
       flexGrow: 1,
     }
   }));
+
   const classes = useStyles();
 
   return (
@@ -26,26 +29,59 @@ const Header = () => {
             to="/"
             color="inherit"
           >
-          Blog
+            Blog
           </Button>
 
-          <IconButton 
-          component={NavLink}
-          to="/account"
-          color="inherit"
+          {props.user && 
+          <IconButton
+            component={NavLink}
+            to="/account"
+            color="inherit"
           >
-              <AccountCircle />
-            </IconButton>
+            <AccountCircle />
+          </IconButton>
+          }
+          {!props.user && 
           <Button
             component={Link}
             to="/login"
             color="inherit"
-          >Login
+          >
+            Войти
           </Button>
+          }
+
+          {props.user && 
+          <Button
+            onClick={props.logoutUser}
+            color="inherit"
+          >
+            Выйти
+          </Button>
+          }
+
+          {props.user && 
+          <Button
+            component={Link}
+            to="/users"
+            color="inherit"
+          >
+            Список пользователей
+          </Button>
+          }
+
         </Toolbar>
       </AppBar>
     </div>
   );
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser: () => dispatch(logoutUser())
+});
+
+const mapStateToProps = (state) => ({
+  user: state.main.user
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -27,6 +27,17 @@ export const loginUser = (newUser) => {
   };
 };
 
+export const logoutUser = () => {
+  return async (dispatch) => {
+    try {
+      jwtToken.remove();
+      dispatch(updateUser(null));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const authorizeThunk = () => {
   return async (dispatch) => {
     try {
@@ -34,7 +45,7 @@ export const authorizeThunk = () => {
       if (token) {
         const user = await authApi.me();
         dispatch(updateUser(user));
-      } 
+      }
     } catch (err) {
       console.log(err);
     }
@@ -44,6 +55,7 @@ export const authorizeThunk = () => {
 export const editUserThunk = (newData, userId) => {
   return async (dispatch) => {
     try {
+      console.log(newData, userId);
       const user = await userApi.edit(newData, userId);
       dispatch(updateUser(user));
     } catch (err) {

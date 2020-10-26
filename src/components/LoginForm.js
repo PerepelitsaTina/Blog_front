@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { NavLink, withRouter } from 'react-router-dom';
 
-import { connect } from 'react-redux';
 import { loginUser } from 'store/main/mainThunks';
 
 class LoginForm extends Component {
@@ -83,8 +83,8 @@ class LoginForm extends Component {
               autoFocus
               onChange={this.handleChange}
               value={this.state.email}
-
             />
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -97,29 +97,25 @@ class LoginForm extends Component {
               autoComplete="current-password"
               onChange={this.handleChange}
               value={this.state.password}
-
             />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-
             >
               Войти
-          </Button>
-            <Grid container>
-              <Grid item>
-                <Link
-                  component={NavLink}
-                  to="/registration" 
-                  variant="body2"
-                  >
-                  {"Нет аккаунта? Зарегистрироваться"}
-                </Link>
-              </Grid>
-            </Grid>
+            </Button>
+
+            <Link
+              component={NavLink}
+              to="/registration"
+              variant="body2"
+            >
+              {"Нет аккаунта? Зарегистрироваться"}
+            </Link>
           </form>
         </div>
       </Container>
